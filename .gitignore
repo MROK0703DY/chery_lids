@@ -1,0 +1,53 @@
+# Байт-код (скомпилированные файлы)
+__pycache__/
+.pytest_cache
+*.py[cod]
+*$py.class
+
+# Виртуальные окружения (рекомендуется не коммитить)
+venv/
+env/
+.venv/
+ENV/
+
+# Дистрибутивы и пакеты
+dist/
+build/
+*.egg-info/
+.installed.cfg
+*.egg
+
+# Настройки IDE (PyCharm, VS Code)
+.idea/
+.vscode/
+*.swp
+*.swo
+
+# Секреты и переменные окружения
+.env
+.venv
+instance/
+
+# Логи и временные файлы
+*.log
+.cache/
+
+# Тесты и покрытие
+.coverage
+htmlcov/
+.pytest_cache/
+.tox/
+
+# Jupyter Notebooks
+.ipynb_checkpoints
+tests/_trial_temp-1/
+tests/_trial_temp/
+tests/desktop.ini
+bun/desktop.ini
+parser/desktop.ini
+parser2/desktop.ini
+project1/desktop.ini
+soup/desktop.ini
+store_modules/desktop.ini
+telebot/desktop.ini
+.gigaide/

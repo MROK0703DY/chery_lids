@@ -1,0 +1,224 @@
+<!doctype html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>
+      Сайт не является официальным ресурсом дилерского центра CHERY или компании
+      TENET.
+    </title>
+    <link rel="stylesheet" href="styles/style.css" />
+    <script src="js/script.js" defer></script>
+  </head>
+  <body>
+    <!-- Кнопка переключения темы (круглая, в правом верхнем углу) -->
+    <button
+      class="theme-toggle"
+      id="theme-toggle-btn"
+      aria-label="Переключить тему"
+    >
+      🌙
+    </button>
+
+    <!-- НОВОЕ: Обертка, которая изолирует плашки от flex-влияния тега body -->
+    <div class="top-bars-container">
+      <div class="static-top-bar">
+        Узнайте реальную стоимость CHERY = TENET от официального дилера
+      </div>
+      <div class="promo-top-bar" id="promo-bar-node">
+        <div class="promo-bar-content">
+          <span id="target-promo-text">Распродажа моделей T7 до 28 июня!</span>
+          <strong id="target-promo-countdown">Осталось: -- дней</strong>
+        </div>
+        <button
+          class="promo-bar-close"
+          id="close-promo-btn"
+          aria-label="Скрыть акцию"
+        >
+          ×
+        </button>
+      </div>
+    </div>
+
+    <div class="quote">
+      <!-- Шапка контактов -->
+      <div class="header__mobile" id="target-phone-top"></div>
+      <div class="logotext" id="target-logotext"></div>
+      <div class="phonedescr2" id="target-place"></div>
+
+      <!-- Список преимуществ -->
+      <div class="advantages">
+        <div class="advantage">
+          <div class="advantageimg"></div>
+          <div class="advantagetext" id="target-adv1"></div>
+        </div>
+        <div class="advantage">
+          <div class="advantageimg"></div>
+          <div class="advantagetext" id="target-adv2"></div>
+        </div>
+        <div class="advantage">
+          <div class="advantageimg"></div>
+          <div class="advantagetext" id="target-adv3"></div>
+        </div>
+
+        <!-- НОВОЕ: Сетка из 4 карточек автомобилей -->
+        <div class="cars-grid">
+          <!-- Карточка 1 -->
+          <div class="car-card" data-car-id="tiggo4">
+            <div class="car-card__img">
+              <img
+                src="https://avatars.mds.yandex.net/get-verba/1030388/2a00000199cf3139e56c646479077e28cfec/wizardv3mr"
+                alt="Tiggo 4"
+              />
+            </div>
+            <div class="car-card__title">Tiggo 4</div>
+            <div class="car-card__price">от 1 650 000 ₽</div>
+            <button class="car-card__btn">Подробнее</button>
+          </div>
+
+          <!-- Карточка 2 (С Вашей картинки) -->
+          <div class="car-card" data-car-id="t4l">
+            <div class="car-card__img">
+              <img
+                src="https://s12.auto.drom.ru/photo/v2/e2slxSaVflMQRu44CKAOYeyqhnSMXFwpoAkGpK6v6jgbkRH_7RDxrGmBJt3Ob94qzrTu6Q0YdC_Jswwl/gen600.jpg"
+                alt="TENET T4L"
+              />
+              <!-- Замените на путь к вашей картинке red t4 -->
+            </div>
+            <div class="car-card__title">TENET T4L</div>
+            <div class="car-card__price">от 2 159 000 ₽</div>
+            <button class="car-card__btn">Подробнее</button>
+          </div>
+
+          <!-- Карточка 3 -->
+          <div class="car-card" data-car-id="t4_4wd">
+            <div class="car-card__img">
+              <img
+                src="https://autoreview.ru/images/Article/1790/Article_179000_860_575.jpg"
+                alt="TENET T4 (4WD)"
+              />
+            </div>
+            <div class="car-card__title">TENET T4 (4WD)</div>
+            <div class="car-card__price">от 2 300 000 ₽</div>
+            <button class="car-card__btn">Подробнее</button>
+          </div>
+
+          <!-- Карточка 4 -->
+          <div class="car-card" data-car-id="tiggo7">
+            <div class="car-card__img">
+              <img
+                src="https://s.auto.drom.ru/i24313/r/photos/1461977/big_1732213.jpg"
+                alt="CHERY TIGGO 7 PRO MAX"
+              />
+            </div>
+            <div class="car-card__title">TIGGO 7 PRO MAX</div>
+            <div class="car-card__price">от 1 789 000 ₽</div>
+            <button class="car-card__btn">Подробнее</button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Новое: Информационный статус страницы (Дисклеймер) -->
+      <div
+        class="page-disclaimer"
+        style="
+          font-size: 0.65rem;
+          color: #64748b;
+          margin-top: 15px;
+          line-height: 1.3;
+          text-align: center;
+        "
+      >
+        * Сайт носит исключительно ознакомительный характер, собирает тестовые
+        лиды и не является официальным ресурсом дилерского центра CHERY или
+        компании TENET.
+      </div>
+
+      <a href="policy.html" class="policy-mob">Политика конфиденциальности</a>
+
+      <!-- Фиксированный нижний блок (Консультант) -->
+      <div class="fixed__botitem">
+        <div class="mesimg"></div>
+        <div class="bot__stats">
+          <div class="bot__name" id="target-botname"></div>
+          <div class="bot__post" id="target-botpost"></div>
+        </div>
+        <a href="tel:+74742545312" class="fixed__btn">
+          <span class="fixed__text" id="target-fixedtext"></span>
+          <span class="fixed__ph" id="target-fixedphone"></span>
+        </a>
+      </div>
+    </div>
+
+    <!-- Модальное окно (Попап с динамической моделью, характеристиками и формой) -->
+    <div class="popup__thanks-bg" id="popup-bg">
+      <div class="popup__thanks" id="popup-content-block">
+        <div class="blockpopup__close" id="close-popup-btn"></div>
+
+        <!-- Сетка данных модели автомобиля (Заполняется через JS) -->
+        <div class="popup-car-card" id="car-info-node">
+          <div class="popup-car-title" id="modal-car-title">
+            CHERY TIGGO 7 PRO MAX
+          </div>
+          <div class="popup-car-price" id="modal-car-price">от 1 789 000 ₽</div>
+          <div class="popup-car-img-placeholder">
+            <img
+              id="modal-car-img"
+              src="https://eu.api-new.ru/images/color_image/ff2e/20edd19fc/9f9ebe1bde1f.png"
+              alt="Автомобиль"
+            />
+          </div>
+
+          <!-- НОВОЕ: Контейнер для технических характеристик -->
+          <div class="popup-car-specs" id="modal-car-specs">
+            <!-- Сюда JS будет вставлять строки с характеристиками -->
+          </div>
+        </div>
+
+        <!-- Форма для сбора заявок -->
+        <form class="lead-form" id="lead-form-node">
+          <!-- Скрытое поле для передачи выбранной модели при отправке лида -->
+          <input
+            type="hidden"
+            id="client-car-choice"
+            name="car_model"
+            value=""
+          />
+
+          <input type="text" id="client-name" placeholder="Ваше имя" required />
+          <input
+            type="tel"
+            id="client-phone"
+            placeholder="Номер телефона"
+            required
+          />
+
+          <!-- Чекбокс согласия на обработку ПД (152-ФЗ) -->
+          <label class="checkbox-agreement">
+            <input
+              type="checkbox"
+              id="pd-agreement"
+              name="pd_agreement"
+              required
+            />
+            <span class="checkbox-agreement__text">
+              Согласен на
+              <a href="policy.html" target="_blank" class="policy-link"
+                >обработку персональных данных</a
+              >
+            </span>
+          </label>
+
+          <button type="submit">Получить предложение</button>
+        </form>
+
+        <!-- Блок «Спасибо за заявку» (после отправки формы) -->
+        <div class="blocksuccess" id="success-block-node">
+          <div class="icosuccess"></div>
+          <div class="smshead" id="target-smshead"></div>
+          <div class="smsdesc" id="target-smsdesc"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
