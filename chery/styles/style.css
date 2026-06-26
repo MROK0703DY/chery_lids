@@ -428,7 +428,7 @@ z-index: 1000;
 opacity: 0;
 pointer-events: none;
 transition: opacity 0.3s ease, background-color 0.3s ease;
-padding: 15px;
+padding: 20px;
 }
 
 .popup__thanks-bg.active {
@@ -447,8 +447,9 @@ position: relative;
 box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 transform: scale(0.9);
 transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
-/* Добавлено ограничение высоты для длинных характеристик на мобилках */
-max-height: 90vh;
+/* Высота на всю страницу с отступами */
+height: calc(100vh - 40px);
+max-height: calc(100vh - 40px);
 overflow-y: auto;
 }
 
@@ -551,7 +552,7 @@ z-index: 1000;
 opacity: 0;
 pointer-events: none;
 transition: opacity 0.3s ease, background-color 0.3s ease;
-padding: 15px;
+padding: 20px;
 }
 
 .popup__thanks-bg.active {
@@ -570,6 +571,10 @@ position: relative;
 box-shadow: 0 20px 40px rgba(0, 0, 0, 0.6);
 transform: scale(0.9);
 transition: transform 0.3s ease, background-color 0.3s ease, border-color 0.3s ease;
+/* Высота на всю страницу с отступами */
+height: calc(100vh - 40px);
+max-height: calc(100vh - 40px);
+overflow-y: auto;
 }
 
 .popup__thanks-bg.active .popup__thanks {
@@ -849,9 +854,10 @@ object-fit: contain; /* Машина сожмется ровно настоль�
 }
 
 /* ==================== НОВОЕ: СТИЛИ ХАРАКТЕРИСТИК В МОДАЛКЕ ==================== */
-/* Добавим скролл для мобильных на случай, если контент модалки станет длинным */
+/* Высота модального окна на всю страницу с прокруткой */
 .popup__thanks {
-  max-height: 90vh;
+  height: calc(100vh - 40px);
+  max-height: calc(100vh - 40px);
   overflow-y: auto;
 }
 
@@ -937,4 +943,46 @@ object-fit: contain; /* Машина сожмется ровно настоль�
   max-width: 100%;
   max-height: 100%;
   object-fit: contain;    /* Картинка аккуратно впишется в блок, не ломая верстку */
+}
+
+/* ==================== БЫСТРАЯ ФОРМА ЗАЯВКИ (из html_insert.html) ==================== */
+.quick-lead-form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  padding: 20px;
+  background: var(--advantage-bg);
+  border: 1px solid var(--advantage-border);
+  border-radius: 12px;
+}
+
+.quick-lead-form input {
+  background: var(--input-bg);
+  border: 1px solid var(--input-border);
+  padding: 12px;
+  border-radius: 8px;
+  color: var(--text-white);
+  outline: none;
+  transition: background-color 0.3s ease, border-color 0.3s ease, color 0.3s ease;
+}
+
+.quick-lead-form input:focus {
+  border-color: var(--accent-red);
+}
+
+.quick-lead-form button {
+  background: var(--accent-red);
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 8px;
+  font-weight: bold;
+  cursor: pointer;
+  text-transform: uppercase;
+  transition: background-color 0.3s ease;
+}
+
+.quick-lead-form button:hover {
+  background: var(--accent-red-hover);
 }

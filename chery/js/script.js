@@ -53,7 +53,7 @@ const carsData = {
   t4l: {
     title: "TENET T4L",
     price: "от 2 159 000 ₽",
-    img: "https://autoreview.ru/images/Article/1790/Article_179000_860_575.jpg",
+    img: "https://s12.auto.drom.ru/photo/v2/e2slxSaVflMQRu44CKAOYeyqhnSMXFwpoAkGpK6v6jgbkRH_7RDxrGmBJt3Ob94qzrTu6Q0YdC_Jswwl/gen600.jpg",
     specs: {
       Габариты: "4506 x 1831 x 1652 мм",
       Двигатель: "1.5 л Turbo",
@@ -111,7 +111,7 @@ document.getElementById("target-smsdesc").innerHTML = data_site.smsdesc;
 // 3. Логика интерактивного модального окна (Popup)
 const popupBg = document.getElementById("popup-bg");
 const closePopupBtn = document.getElementById("close-popup-btn");
-const leadForm = document.getElementById("lead-form-node");
+const leadForm = document.getElementById("leadForm");
 const carInfo = document.getElementById("car-info-node");
 const successBlock = document.getElementById("success-block-node");
 
@@ -172,9 +172,13 @@ popupBg.addEventListener("click", (e) => {
   if (e.target === popupBg) closePopup();
 });
 
-// 4. Логика отправки заявки Виктории в Telegram
-leadForm.addEventListener("submit", (e) => {
+// 4. Логика отправки заявки через Flask (app.py)
+leadForm.addEventListener("submit", async (e) => {
   e.preventDefault();
+
+  // Регулярное выражение для проверки телефона (РФ)
+  const phoneRegex =
+    /^(\+7|7|8)?[\s\-]?\(?[489][0-9]{2}\)?[\s\-]?[0-9]{3}[\s\-]?[0-9]{2}[\s\-]?[0-9]{2}$/;
 
   // Проверка чекбокса согласия на обработку ПД (152-ФЗ)
   const pdCheckbox = document.getElementById("pd-agreement");
@@ -183,53 +187,68 @@ leadForm.addEventListener("submit", (e) => {
   if (!pdCheckbox || !pdCheckbox.checked) {
     if (checkboxLabel) {
       checkboxLabel.classList.add("error");
-      // Убираем ошибку при повторном клике на чекбокс
       pdCheckbox.addEventListener(
         "change",
         () => checkboxLabel.classList.remove("error"),
         { once: true },
       );
     }
-    // Показываем alert с понятным сообщением
     alert("Необходимо дать согласие на обработку персональных данных");
     return;
   }
 
-  const name = document.getElementById("client-name").value;
-  const phone = document.getElementById("client-phone").value;
-  const selectedCar = hiddenCarInput.value || "Не определена";
+  const phoneField = document.getElementById("client-phone").value.trim();
 
-  // Формируем текст сообщения для Telegram с указанием выбранного автомобиля
-  const messageText = `🔥 Новая заявка на тест-драйв/расчет!\n🚗 Модель: <b>${selectedCar}</b>\n👤 Имя: ${name}\n📞 Телефон: ${phone}\n✅ Согласие на ПД: Да\nМенеджер: Виктория`;
+  if (!phoneRegex.test(phoneField)) {
+    alert(
+      "Пожалуйста, введите корректный номер телефона (например, +79991234567)",
+    );
+    return;
+  }
 
-  // Данные вашего Telegram-бота (замените на свои, когда будете готовы)
-  const TELEGRAM_TOKEN = "ВАШ_ТОКЕН_БОТА";
-  const TELEGRAM_CHAT_ID = "ВАШ_ID_ЧАТА_ИЛИ_ВИКТОРИИ";
-  const telegramUrl = `https://api.telegram.org/bot${TELEGRAM_TOKEN}/sendMessage`;
+  // Очищаем номер от скобок, пробелов и тире, оставляя только цифры
+  const cleanPhone = phoneField.replace(/\D/g, "");
 
-  // Отправка запроса в фоновом режиме (Fetch)
-  fetch(telegramUrl, {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({
-      chat_id: TELEGRAM_CHAT_ID,
-      text: messageText,
-      parse_mode: "HTML",
-    }),
-  }).catch((err) => console.log("Ошибка отправки в TG:", err));
+  const payload = {
+    name: document.getElementById("client-name").value.trim(),
+    phone: cleanPhone,
+    car_model: hiddenCarInput.value || "Не определена",
+  };
 
-  // Визуальное переключение на окно "Спасибо"
-  carInfo.style.display = "none";
-  leadForm.style.display = "none";
-  successBlock.classList.add("active");
+  try {
+    const response = await fetch("http://127.0.0.1:5000/send-lead", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload),
+    });
 
-  let timeLeft = 10;
-  const countdownElement = document.getElementById("countdown");
-  const interval = setInterval(() => {
-    timeLeft--;
-    if (countdownElement) countdownElement.innerText = timeLeft;
-    if (timeLeft <= 0) clearInterval(interval);
-  }, 1000);
+    if (response.ok) {
+      alert("Заявка успешно принята!");
+
+      // Сброс полей формы
+      leadForm.reset();
+
+      // Визуальное переключение на окно "Спасибо"
+      carInfo.style.display = "none";
+      leadForm.style.display = "none";
+      successBlock.classList.add("active");
+
+      let timeLeft = 10;
+      const countdownElement = document.getElementById("countdown");
+      const interval = setInterval(() => {
+        timeLeft--;
+        if (countdownElement) countdownElement.innerText = timeLeft;
+        if (timeLeft <= 0) clearInterval(interval);
+      }, 1000);
+    } else {
+      alert("Ошибка сервера при отправке. Попробуйте позже.");
+    }
+  } catch (error) {
+    console.error("Ошибка сети:", error);
+    alert(
+      "Не удалось связаться с сервером. Убедитесь, что сервер Python (app.py) запущен.",
+    );
+  }
 });
 
 // ==================== ИСПРАВЛЕННАЯ ЛОГИКА ДЛЯ НОВЫХ ВЕРХНИХ ПОЛЕЙ ====================
