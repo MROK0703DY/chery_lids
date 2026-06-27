@@ -89,6 +89,14 @@ transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease,
 transform: scale(1.1);
 }
 
+/* Скрываем кнопку темы, пока открыта модалка */
+.popup__thanks-bg.active ~ .theme-toggle,
+body:has(.popup__thanks-bg.active) .theme-toggle {
+  opacity: 0;
+  pointer-events: none;
+  visibility: hidden;
+}
+
 /* ==================== 2. ОСНОВНОЙ КОНТЕЙНЕР ==================== */
 .quote {
 background-color: var(--bg-card);
@@ -985,4 +993,19 @@ object-fit: contain; /* Машина сожмется ровно настоль�
 
 .quick-lead-form button:hover {
   background: var(--accent-red-hover);
+}
+
+/* Этот код сработает ТОЛЬКО на экранах шириной до 768px (мобильные и планшеты) */
+@media (max-width: 768px) {
+  .modal {
+    position: fixed !important;
+    top: 0 !important;
+    left: 0 !important;
+    width: 100% !important;
+    height: 100dvh !important; /* Безопасная высота для мобильных */
+    max-width: 100% !important;
+    max-height: 100% !important;
+    border-radius: 0 !important; /* Убираем скругления углов на весь экран */
+    overflow-y: auto !important; /* Включаем прокрутку, если контент не влезает */
+  }
 }
